@@ -96,6 +96,7 @@ public class FloatingActionMenu extends ViewGroup {
     private boolean mIsSetClosedOnTouchOutside;
     private int mOpenDirection;
     private OnMenuToggleListener mToggleListener;
+    private Drawable openIcon;
 
     private ValueAnimator mShowBackgroundAnimator;
     private ValueAnimator mHideBackgroundAnimator;
@@ -159,6 +160,10 @@ public class FloatingActionMenu extends ViewGroup {
         mIcon = attr.getDrawable(R.styleable.FloatingActionMenu_menu_icon);
         if (mIcon == null) {
             mIcon = getResources().getDrawable(R.drawable.fab_add);
+        }
+        openIcon = attr.getDrawable(R.styleable.FloatingActionMenu_menu_open_icon);
+        if (openIcon == null) {
+            openIcon = getResources().getDrawable(R.drawable.fab_add);
         }
         mLabelsSingleLine = attr.getBoolean(R.styleable.FloatingActionMenu_menu_labels_singleLine, false);
         mLabelsEllipsize = attr.getInt(R.styleable.FloatingActionMenu_menu_labels_ellipsize, 0);
@@ -637,6 +642,8 @@ public class FloatingActionMenu extends ViewGroup {
                 }
             }
 
+            mImageToggle.setImageDrawable(openIcon);
+
             int delay = 0;
             int counter = 0;
             mIsMenuOpening = true;
@@ -675,6 +682,7 @@ public class FloatingActionMenu extends ViewGroup {
                     }
                 }
             }, ++counter * mAnimationDelayPerItem);
+
         }
     }
 
@@ -692,6 +700,8 @@ public class FloatingActionMenu extends ViewGroup {
                     mOpenAnimatorSet.cancel();
                 }
             }
+
+            mImageToggle.setImageDrawable(mIcon);
 
             int delay = 0;
             int counter = 0;
@@ -731,6 +741,7 @@ public class FloatingActionMenu extends ViewGroup {
                     }
                 }
             }, ++counter * mAnimationDelayPerItem);
+
         }
     }
 
